@@ -1,0 +1,474 @@
+apiVersion: work.open-cluster-management.io/v1
+kind: ManifestWork
+metadata:
+  creationTimestamp: "2021-05-11T02:42:30Z"
+  finalizers:
+  - cluster.open-cluster-management.io/manifest-work-cleanup
+  generation: 1
+  managedFields:
+  - apiVersion: work.open-cluster-management.io/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:ownerReferences:
+          .: {}
+          k:{"uid":"c8e511ae-ad44-43eb-b15e-bbac0fa4764c"}:
+            .: {}
+            f:apiVersion: {}
+            f:blockOwnerDeletion: {}
+            f:controller: {}
+            f:kind: {}
+            f:name: {}
+            f:uid: {}
+      f:spec:
+        .: {}
+        f:workload:
+          .: {}
+          f:manifests: {}
+    manager: managedcluster-import-controller
+    operation: Update
+    time: "2021-05-11T02:42:30Z"
+  - apiVersion: work.open-cluster-management.io/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:finalizers:
+          .: {}
+          v:"cluster.open-cluster-management.io/manifest-work-cleanup": {}
+      f:status:
+        .: {}
+        f:conditions: {}
+        f:resourceStatus:
+          .: {}
+          f:manifests: {}
+    manager: work
+    operation: Update
+    time: "2021-05-11T02:43:36Z"
+  name: cluster1-aws-east-klusterlet
+  namespace: cluster1-aws-east
+  ownerReferences:
+  - apiVersion: cluster.open-cluster-management.io/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ManagedCluster
+    name: cluster1-aws-east
+    uid: c8e511ae-ad44-43eb-b15e-bbac0fa4764c
+  resourceVersion: "10765933"
+  selfLink: /apis/work.open-cluster-management.io/v1/namespaces/cluster1-aws-east/manifestworks/cluster1-aws-east-klusterlet
+  uid: c6c5e404-622b-4ea9-a3e7-1b3019d6e3ac
+spec:
+  workload:
+    manifests:
+    - apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: open-cluster-management-agent
+    - apiVersion: v1
+      imagePullSecrets:
+      - name: open-cluster-management-image-pull-credentials
+      kind: ServiceAccount
+      metadata:
+        name: klusterlet
+        namespace: open-cluster-management-agent
+    - apiVersion: v1
+      data:
+        kubeconfig: YXBpVmVyc2lvbjogdjEKY2x1c3RlcnM6Ci0gY2x1c3RlcjoKICAgIGNlcnRpZmljYXRlLWF1dGhvcml0eS1kYXRhOiBMUzB0TFMxQ1JVZEpUaUJEUlZKVVNVWkpRMEZVUlMwdExTMHRDazFKU1VSTmFrTkRRV2h4WjBGM1NVSkJaMGxKVlVrclRTdFBNM2hGU21OM1JGRlpTa3R2V2tsb2RtTk9RVkZGVEVKUlFYZE9la1ZUVFVKQlIwRXhWVVVLUTNoTlNtSXpRbXhpYms1dllWZGFNRTFUUlhkSWQxbEVWbEZSUkVWNGFISmtWMHBzVEZkR2QyRllUbXhqYmxwc1kya3hjMWxwTVhwaFYyUjFXbGhKZHdwSWFHTk9UV3BGZDA1VVFYcE5WRmwzVDFSSmVsZG9ZMDVOZWtWM1RsUkJlRTFVV1hkUFZFbDZWMnBCTTAxU1NYZEZRVmxFVmxGUlRFVjNiSFpqUjFaMUNtTXlhSEJhYmxGNFNWUkJaa0puVGxaQ1FVMVVSMGQwTVZsdFZYUlpXRUp3WXpKV2VXUnRWbmxNVjNocFRGaE9jRm95Tld4amFrTkRRVk5KZDBSUldVb0tTMjlhU1doMlkwNUJVVVZDUWxGQlJHZG5SVkJCUkVORFFWRnZRMmRuUlVKQlRUZEthalk1Tm5veE5VVXJVbFowZDFOTWFsQTBUMFV2TjNwVldHVnRkUXBZYTFwM2N5dGhRakY1UmtKNVVWbHJLMXA1UmtsaFZsQnhlVXB0V1doMU1ubGthelZWU1VOWGJHNXpWemM0TkdFeVRrbHdMMlZTYjNwMVRGUlRXRVJHQ25OSFNFaHVSMVpXTVhWdUwwd3dOMnRaYUdKdVpqTXdaR3RuWnpaaVlsVjRiVmhXTW5CVFRsVnZUazQxU0M5QmFEUm1ZazFoZW1OSk5URktjM0JUWlVzS1RHaHNlRVJFZEVzM2VXUnJkV2hLYkZoSVJIcHVZV3hHVGxScWJtcHhOSHAwVFRGV1ExTlpibFl3VVZsQ1lqVnFVRmRpVGtVM0sxTXhRV2x4UTA4cmF3cG5iRXB3Tm5kdFp6UjRiSEJUZERoMmRVRkVNMnRzTWxOUVNVb3ZObmd5ZURKbUswNXBlbU00VEcxVVIweERWREZNVnpkc2FrVmxjRUZxYjNBelF6bHRDbEF3WW1neE1rNWFibEJQZEZONFlsSnROa000YUZSMU1GbzJNMWw1VlZaeVJHNWhXRlJWVnpKUVlYcHlOWEF2YzNCVFJHSmtTVEJEUVhkRlFVRmhUa01LVFVWQmQwUm5XVVJXVWpCUVFWRklMMEpCVVVSQlowdHJUVUU0UjBFeFZXUkZkMFZDTDNkUlJrMUJUVUpCWmpoM1NGRlpSRlpTTUU5Q1FsbEZSa3RQWXdwSVZXbGFVVlpsSzJ4QlIyMHJSamxzYXpaa2NqTlNhbFJOUVRCSFExTnhSMU5KWWpORVVVVkNRM2RWUVVFMFNVSkJVVU5NU3pOSlFWZExURVpUWnpaM0NuaENkRFZZTWtSdmNHWk1XR2xHTjJzeFlqQnFTMmh5V21Jd2FGRnNPWEpTWkdkSmF6ZDFMMkZtV0VvclZGazBOVE5sYWxOQ1RsWm9hRzh6YVRoVUszTUtjMDFWWlZOTE5IZENabXBVVWtkM1VFbzBLMmRsVFV0UlNFaDBlRzFrUlVSUk0yeDNibFZNV0VFek1HUkJNRTFuVkc0cmNETk1hR3RQTDFwcldXNDVUd280YTNWc2MzRTVURlZFZDNaeFFtUXpRMDV2V1RGeE9YVnZhM2htWkZGUllqaGpObkpMVVRCSVowdElNVXRqVnpaVU1FcFFNelpUVW1zMFZtbFBlREpuQ21FMk1UWXhkM3B6TlRKc2NHSm9RM0k1ZFhSQmEwbGpUbnAxU21GclJpc3llVlU0TTBoTVZsZzJWVFl5VTBjelZWcFlZbVUwUVZSSmVrWm1VVkUwWTFvS04wRllTa1J4T1hCTVJVdzJZVWRxUm0xNmRIcDVWMWQzWVROWmFVaGtRekJUUzJ0TmN6Um1aalZRU1dOeFltZGxRbmRDV1dNd2RGTlRkblY1TWxsS1ZRb3dXbUk1WW5wUFpRb3RMUzB0TFVWT1JDQkRSVkpVU1VaSlEwRlVSUzB0TFMwdENpMHRMUzB0UWtWSFNVNGdRMFZTVkVsR1NVTkJWRVV0TFMwdExRcE5TVWxFVVVSRFEwRnBhV2RCZDBsQ1FXZEpTVXRPZG5kb1pUWldZak5aZDBSUldVcExiMXBKYUhaalRrRlJSVXhDVVVGM1VHcEZVMDFDUVVkQk1WVkZDa040VFVwaU0wSnNZbTVPYjJGWFdqQk5VMmQzU21kWlJGWlJVVVJGZURseVpGZEtiRXhYUm5kaFdFNXNZMjVhYkdOcE1YTmlNazVvWWtkb2RtTXpVWFFLWXpKc2JtSnRWbmxOUWpSWVJGUkplRTFFVlhkTmVrVXlUVVJyZVUxc2IxaEVWRTE0VFVSVmQwMVVSVEpOUkd0NVRXeHZkMUJxUlZOTlFrRkhRVEZWUlFwRGVFMUtZak5DYkdKdVRtOWhWMW93VFZObmQwcG5XVVJXVVZGRVJYZzVjbVJYU214TVYwWjNZVmhPYkdOdVdteGphVEZ6WWpKT2FHSkhhSFpqTTFGMENtTXliRzVpYlZaNVRVbEpRa2xxUVU1Q1oydHhhR3RwUnpsM01FSkJVVVZHUVVGUFEwRlJPRUZOU1VsQ1EyZExRMEZSUlVFMVVrOVZUalpSYlVWV1MwVUtPVEZsUldkNllWZDJjSGQwZVVwWk1ISTVkV2s0TjNsSEwwSjVhR1IxVUZoSmFsYzBSMUpzWTFSRlJHWTVTV2h1U0U5clNGSk1WV0p4WldOcGNUZG9jZ292ZDJGQ1kwcHBhR2xWU2xaUE1VVTNNMlJvUVZCSmFtdEVWRnBqVlVJMGQzVm5kSG8zUlNzcmRWQjJNM1p4V1RGVFQxSTRTSFZqU20xNmVVNHpXVUl6Q2paa1kwTlNjV2d4WlRsWmVHNWxTblpLYkZjd05YVmlWRXBqWTJ4aWF6TkxXVTlzU0N0UWJUQTJkazkwUVRkR2VHVTRUa2wzYVVjd1ltUkxMMUJSTWtJS1V6SXJjVXB0UkhkdWVEUnNWRFUwYW1oeGMyZE9lWFpVVUVZMVdHSnhTemhhVGxoSmVIbHRXbTAwUldsWVVTdHNOSEZYU0N0TE9FUmFRV1ZaZUVaS1dBcDRkMlExY0VSQ1IySkZPRkpwTDJOM2RVNTNNek42WjNWM2JrTXhlRko1V0hZeVRrVTNXVkJHWjFKelpFbFpNVTV4V2pKSGEyZHdkRTlHTlZjMWExVm5DbFZZZFhkcmNsSTVSM2RKUkVGUlFVSnZNRWwzVVVSQlQwSm5UbFpJVVRoQ1FXWTRSVUpCVFVOQmNWRjNSSGRaUkZaU01GUkJVVWd2UWtGVmQwRjNSVUlLTDNwQlpFSm5UbFpJVVRSRlJtZFJWV2hNV1hCbFpHcEhVbGhwTlVnNU5HdFhTVUZRUjI1cWNHUmhZM2RFVVZsS1MyOWFTV2gyWTA1QlVVVk1RbEZCUkFwblowVkNRVUpXVERWemIwdzNZMlowT1RCVWVYZE5RalpxY0RaR2RHMWhiV2hSYUVVM2QxZ3JNVkZzZW5Ock5HTnBhMjVIVmxWNGJFWnBPVTQzZEdkWkNsZHhjM05DU1UwdmRFeG1VakZMYVRRd1pIRlVMMHQzV0ZGNVQzUm9TVVp1ZG1ScVUzZ3hjWGhNT0ZJeU5VeEVMekU1ZGtkRVowaE9PVTkxTkZsQk9XOEtVRlp1ZEhJelptNWlLMll5Ym5scmVHOHhVblJRTDJwME16SlBlblV3YVZoVU5EVXpiek5pTVVGT05UaFRhSGR0YUZrMVIxVnZVa1o0WlUxb2FYUnRjQXBWWWtReFZYUlFORTFHV1NzM1ZFdFpWME5SVjBkUVJURlRVVTExWkRsNEwybENUekYxVVdWWFkwc3hObkUyVFVGTE5qTjRWRFJQU0RkWFJFZDRSVFI0Q2xRdk5rSjVhbW81WTJFM2NVcHFiRzFwVVhsWWVGTmpaVVpMZWxwUE5rUm5aVGgwUWs5MlNuaFRia3RHWldOVGVYSXdMMlI1WWxCUFNYY3ljR0pSY0VvS05URkJibWRNT0VWbmJqZ3hZVFY2TTFRd2QzbEJUMnAwVms0NFBRb3RMUzB0TFVWT1JDQkRSVkpVU1VaSlEwRlVSUzB0TFMwdENpMHRMUzB0UWtWSFNVNGdRMFZTVkVsR1NVTkJWRVV0TFMwdExRcE5TVWxFVkVSRFEwRnFVMmRCZDBsQ1FXZEpTVlF4T1ZCa05FaE9iMDFyZDBSUldVcExiMXBKYUhaalRrRlJSVXhDVVVGM1VrUkZVMDFDUVVkQk1WVkZDa040VFVwaU0wSnNZbTVPYjJGWFdqQk5VelIzVEVGWlJGWlJVVVJGZVZaeVpGZEtiRXhYUm5kaFdFNXNZMjVhYkdOcE1YcGFXRW95WVZkT2JFeFhOV3dLWkVoa2RtTnRjM1JqTW14dVltMVdlVTFDTkZoRVZFbDRUVVJWZDAxNlJUSk5SR3Q1VFd4dldFUlVUWGhOUkZWM1RWUkZNazFFYTNsTmJHOTNVa1JGVXdwTlFrRkhRVEZWUlVONFRVcGlNMEpzWW01T2IyRlhXakJOVXpSM1RFRlpSRlpSVVVSRmVWWnlaRmRLYkV4WFJuZGhXRTVzWTI1YWJHTnBNWHBhV0VveUNtRlhUbXhNVnpWc1pFaGtkbU50YzNSak1teHVZbTFXZVUxSlNVSkpha0ZPUW1kcmNXaHJhVWM1ZHpCQ1FWRkZSa0ZCVDBOQlVUaEJUVWxKUWtOblMwTUtRVkZGUVRWS1JFZDBPSGxWT0hVMVJHRXZTemQ2TVhZeVN6SmxWRVkwZGtrMWRFTm9WVkZVVjJsTEwzWndSamR0YjJRMVFTOWlVVWN6T0NzMFpXcGxTUXB6YWxCbWJpOW5jVkJ5Y1VWUVVVYzJSV0kzU0haQlNsZHRZWEpsYlRoaFFtaHNaVWRZSzI1bk9XMVRWVGxpYXpFMlRHd3ZNRGx2Y1VnMGFHWXhWVUZ6Q21OemJpOXllbVpSUW0xR1QwNWxSRkZFYTJkTVltb3hWMlZQVWs1bWRWWklRM2w0V2pGRVNXOHpSbGw0VjFORVlreHJTR0ZIZHpFemVYUkpVbUpCUVVZS05FMU1XRzVRVTBKaldFeFRjM01yVFVKT1JtaGlLekZVYmpaTFNIVjJSRnAyTkdveFoza3hURVIxWWxwUGQxTkZWSFJ5U1dRNFpHUmFhVEpYYUhSWk13cFdWMFYzTld0bFJIaEtVMFEwTDJkdll6VndabXRrZDNwbGQxcGhTRkpyU1ZaelQzUmlORkF5VjJ4V2FqZG9kV1psWmxGUVNXZE1URFIyVjJsMk1pc3ZDa3BxYUZoclMwNUlXWHBrVEdGSGVteE9ObVpUUzJKMFdGUjNTVVJCVVVGQ2J6QkpkMUZFUVU5Q1owNVdTRkU0UWtGbU9FVkNRVTFEUVhGUmQwUjNXVVFLVmxJd1ZFRlJTQzlDUVZWM1FYZEZRaTk2UVdSQ1owNVdTRkUwUlVablVWVkplamhWVTFSdmRHMTNPR3RNUjBGQlUycGxNaXQwZVhSM09GRjNSRkZaU2dwTGIxcEphSFpqVGtGUlJVeENVVUZFWjJkRlFrRk9iVlJKSzB0MU1sazVlVlEyY0ZWMk1WcG5TR1JzUVdRMFZsVldVMkpuVGs1TFREZDJSbFEwVmtzdkNqbDVWWFpsTVVaTE1HMXJZM05ZU21ONmRsSkVMMjUyVldZMFdHcGFibU5zT1ZSV1IyazBkMXA2V0ZSalZtUjVNMEZtTUU0clVFMU1lVFF3WWpabUwyWUtSR3hqV1dSaU0xUjJkSE5SVVV4V01XRmxLM1pXVWpsUmF6bHNhRkJtVkZVeU1uSndPRGs0VDFwME9WYzVURWRZTkhOMlUyWkRXRFZEUld4NWExTkpRZ292Y0hVclIyd3phRmM0TWtoWFMxazBkV0p1VGs5NVVGZzBhR2tyZG10ak9VRkJkMjl1TmpKMk4yUjJTRkV6Y1VjeU9VZHdUelpvVFhSSWNFdGlZMW80Q25JNFpHcGlOMUF5Tkd3eVJsaFVURUZRUTBST1lURlNkVGsxVGpOemRqTnJTRTluTUZOb2VGSjBaWGh5YkRsNmQzWldkRWdyWkRKNWNuZHdSelJGVFU0S1NXazBlbTUyVVVsMGVqSjBSMFpWU1hOcldDODNUSHB6VW5wTVVEbFBNRFpOYzFCQkx6UTNPREkzTUQwS0xTMHRMUzFGVGtRZ1EwVlNWRWxHU1VOQlZFVXRMUzB0TFFvdExTMHRMVUpGUjBsT0lFTkZVbFJKUmtsRFFWUkZMUzB0TFMwS1RVbEpSR3g2UTBOQmJpdG5RWGRKUWtGblNVbERTbGx2VUZVMFNrcGlRWGRFVVZsS1MyOWFTV2gyWTA1QlVVVk1RbEZCZDFkVVJsaE5SbFZIUVRGVlJRcEJkM2hQWWpOQ2JHSnVUbTloVjFvd1RGZDBNVmx0VlhSWldFSndZekpXZVdSdFZubE1WemwzV2xoS2FHUkhPWGxZTW5oMldUSkdjMkZIT1hwa1F6RjVDbHBYVG5aa2JWWjVaVk14ZWxwWVNqSmhWelZ1VEZoT2NGb3lOV3hqYTBGNFRtcEpkMDFFVlRSUFZFRjVUVUkwV0VSVVNYaE5SRlYzVFhwRk1rMXFSVEFLVFRGdldFUlVUWGhOUkZWM1RWUkZNazFxUlRCT1JtOTNWMVJHV0UxR1ZVZEJNVlZGUVhkNFQySXpRbXhpYms1dllWZGFNRXhYZERGWmJWVjBXVmhDY0Fwak1sWjVaRzFXZVV4WE9YZGFXRXBvWkVjNWVWZ3llSFpaTWtaellVYzVlbVJETVhsYVYwNTJaRzFXZVdWVE1YcGFXRW95WVZjMWJreFlUbkJhTWpWc0NtTnJRWGhPYWtsM1RVUlZORTlVUVhsTlNVbENTV3BCVGtKbmEzRm9hMmxIT1hjd1FrRlJSVVpCUVU5RFFWRTRRVTFKU1VKRFowdERRVkZGUVN0b2MyNEtNak5ZYUVVM2VsaHJjaXRVU2psTEt5OXRaM1J5UkdRNVlrMU1SSEpwY1hGbE9VczVXbWROUlc5aGJEbGFPRTQ0VGpJMFdVRTVWRFJZYTFSMFJrSjNPQXAyY0RsQ2JqQlRhVGMxU21Vd1FUWndka3d3YkRVeFRFSlFSRk5ZYkZkTmRpOHZiRE5wUzBkSksyNW5SelV4UzA5aWEwTXpZbGh3VkhKamNFaFZjRmwxQ25aTFpTOHZTVXB5ZEhKM1RVaFhWMVowTjB3NFdGbEhNeTlTSzNFM1FXUmlhMlExY2tSM1QwVkdiSGhRTHprM05Ya3dlbE5uTmpFMGR5dDFlV052V2xRS09FTTNXVnBDVGtWa1FqQlhNREphUkhOS1FqRXdlR2RqU0RkbU5HTlpSMEpXWlRSUVdGQklPRlpNU0hVd0sySmFla1pzTWtkbVpuTlBhRkJJZEdOcFR3cFdZMlUzY1VWV00weElNMlZNZWs5S1RrOXFUR0l3ZUdsTVYxUXdTbE5XWmtSTVJXUjFlakowU2tNNFRIQkRSRkJvVkc5UlowRlVjM0pTYkVWUmMwaFdDak50VDBGR0szZGpaRzQwTHpad1QyTkVkMGxFUVZGQlFtOHlUWGRaVkVGUFFtZE9Wa2hST0VKQlpqaEZRa0ZOUTBGeFVYZEVkMWxFVmxJd1ZFRlJTQzhLUWtGVmQwRjNSVUl2ZWtGa1FtZE9Wa2hSTkVWR1oxRlZVRWw0TkhCUE1XWk1NRVZaY3k5VFZXZHFWRk5CTWxKTFEyUlpkMGgzV1VSV1VqQnFRa0puZHdwR2IwRlZVRWw0TkhCUE1XWk1NRVZaY3k5VFZXZHFWRk5CTWxKTFEyUlpkMFJSV1VwTGIxcEphSFpqVGtGUlJVeENVVUZFWjJkRlFrRkxZV2hHTkRRdkNtSmpkMnh4TTFvMloxcFBSbEZNYlRGWVZXUkhURVJxVTB4UkswNVFjSFF6TjBGSGVETk5iMnczYVV0b1JsWndPR3RJTDJrMFpWTk5kazF3V1VWelZrY0tVa3hNZVhsblozSlllRUZtUVhoR1VrRkZVVlI2TUdkRlRrNUpaVXhFVjJkTmRWbzJUV1ZLWlRCV2RURTFVREpYUTJ4dVJXVkJaVUY2YzBzdllYWlRXQXBzZFdRM1NpdDJiR3MxWlVkTWJWRktVMjFZYzNZMVpteHJTbHBaTVhoc2IwMHdja1pNTTJWb1NIUm1OMUk1V1c1RkwyWlBPR3hQYTJ4TVlXZHlNVVpCQ25kSGNEQlNTVWMwZVVobVJWZ3lSWEp0YW5BemVETnVkRk55WkV0NVJIUmhaemhDT0VkWFJqUTFaWGxNVVZGUVoyNXpUemhoU3pKVlJtUlBaVEpwVW1zS2JXRmxhbFZ2UlRaQ2VFUTRiVmhIWW5oWlJsWkRWMGQ1WWxvcmEwbG9VR1F5YVhwR2FERmFha28yZWpVMFpXaHRLMXBJUm5Ga1IwUkZLM2xoUlVFeldBcHJTWFF3TTFkRFExaHpRMUF5ZERBOUNpMHRMUzB0UlU1RUlFTkZVbFJKUmtsRFFWUkZMUzB0TFMwS0xTMHRMUzFDUlVkSlRpQkRSVkpVU1VaSlEwRlVSUzB0TFMwdENrMUpTVVJ2VkVORFFXOXRaMEYzU1VKQlowbEpZMGREVnpGR0wwbHlUVVYzUkZGWlNrdHZXa2xvZG1OT1FWRkZURUpSUVhkS2FrVnJUVU5KUjBFeFZVVUtRWGQzWW1GWE5XNWpiVlo2WTNreGRtTkhWbmxaV0ZKMlkydEJlRTVxU1hkTlJGVTFUVVJyTUUxQ05GaEVWRWw0VFVSVmQwMTZSVEpOYW1kNFRURnZXQXBFVkVsNlRVUlZkMDE2UlRKTmFtZDRUa1p2ZDFGRVJTdE5SSGRIUVRGVlJVRjNkekZMYVRWb1kwaENla3h0VW14aVZ6aDBXbGRHZW1SRE1USk9SR014Q2t4WGFESlpibEl3VEcxU2JHSlhPSFZqYlZaclRGZE9iMXBZVGpCYVdFcHRZVmRXYzFwRE5XcGlNakIzWjJkRmFVMUJNRWREVTNGSFUwbGlNMFJSUlVJS1FWRlZRVUUwU1VKRWQwRjNaMmRGUzBGdlNVSkJVVVJCVVhOb1dEVjFhV2x1ZUdOaWFIQXlNazk2TlZCelNUWm1WMlJLUVVJMVlXcEhXVTlrUjFGUFRRcHJSbGsyZURCa01rMHZWMFYxTUZVNGRWWTBOVzVFWkc5NmJYUnNSV2hRYm5wSk5WZEthRzg0YlZOcGNYZHNPR2htVVROelpscGtaREZtZEVSeVdsUmhDalZKV2l0cmJscElkMloyYUVrMlpsbDBaWGQ0TW5jNE0zWkxaRXB3WldRMlVDOHpWMWRhWjFKVU0yUndaRkpXTmtkb05uZEtVVEJ3TDNSblZ6SlVOblVLZUhaVFRqVllaMjAwTDA1dWFGbFBNVk51ZDFoTmVYTmFUemh2U21sNFVUSnFkVVE1U0daNGVGbG1SMDUxU2tndlYyc3phM05rUVRZM2MxbHBhRmhWTndvMmQyOHhZak5ETmxwQ1dteFhLMUJ6YmtkaVYxUkxjVU5oVVhodlptNW1RVWcxZFVoaVRtaFBUM2wyUldoV09VMDNjWGhoT1hWSVFWSkhTRGs1YkUxdkNrUnRkbGcxUlRZeE9Xc3lOVTVNZGpWalZ6ZFFSbFZ6UjFKWGJGSmliR2w2U2xRMU1YbE5iUzlYY1VoV1FXZE5Ra0ZCUjJwblltZDNaMkpWZDBSbldVUUtWbEl3VUVGUlNDOUNRVkZFUVdkWFowMUNUVWRCTVZWa1NsRlJUVTFCYjBkRFEzTkhRVkZWUmtKM1RVSk5RWGRIUVRGVlpFVjNSVUl2ZDFGRFRVRkJkd3BJVVZsRVZsSXdUMEpDV1VWR1RsTjJXRVEwVlV0d1RsTmtORVI2UzNjck1IbG9UMmhIUlRoblRVSTRSMEV4VldSSmQxRlpUVUpoUVVaQ1dtRkNVRWhXQ21sbFRIQmFSMmN6UVdwdGRFWlhaRFJOUlZkM1RVVkJSMEV4VldSRlVWRTFUVVJsUTA1VGIzVlpXRUozWTNrMWExcFhNWFpNVjFab1l6TlJkR1JxVVRNS1RsTXhiMlJ0U2pCa1F6VnJXbGN4ZGt4dVNteGFRekZxWVVkV2VtUkhWbmxhYld4c1lrZFJkVmt5T1hSTlFUQkhRMU54UjFOSllqTkVVVVZDUTNkVlFRcEJORWxDUVZGQlV6SklkRTE2SzJOSmVVVjJiRzVCUjAwelpEUk9SbUkyVDJNNE5WSnFaM3BpVGtaUWF6RnVXRzlpV1RRellTdEhaV2RaVW5nNEswMHdDbUZCUjNwWk1qVlphRkF5YWtOVE4zZ3hRM0pGYkc5MmVtRmpaM0pTVTIwelRYVTFaWE5STXk5amEwaEhPRU5OYUhsUE5XTjRha3BVVkVKcVpXRlFOazBLZWtWdWExaERXRmxRTkhSS2MySTVNazVQTTNvMVZDczRaa0ZRY0ROdlpUQkpaV2hxU3poS2VVWXdhMkpGTjFaUWIyZFBRMk01ZERsVk9DdHlaaloxZGdwSFFWQlZZelJOTW5wVVIxSmFTbXhOVGpjeU1uRlFPREkwVDJ0MFpXNVRkemRrYzJocGNtNTFaMDVPTTNSaFlrTXZSVEJpWVc5MmNtaDVNelJhYVZkUENrZEtkRFZhTDJFd2NVVkVkbXR5Vm5Ca1kzYzFVV2hOYUVGVWFuRldkMHBWVnk5T1UzRlBiSGRtSzJjMmJGTm9NM0pDV0VwVU5FRXZaazVCVWs5RlVsa0tNMk5oU0Vwd2FVNTZVM1pNZVdKaU1HTlNZVlJRWjA4eGFWTkVaUW90TFMwdExVVk9SQ0JEUlZKVVNVWkpRMEZVUlMwdExTMHRDaTB0TFMwdFFrVkhTVTRnUTBWU1ZFbEdTVU5CVkVVdExTMHRMUXBOU1VsRVJFUkRRMEZtVTJkQmQwbENRV2RKUWtGVVFVNUNaMnR4YUd0cFJ6bDNNRUpCVVhOR1FVUkJiVTFUVVhkSloxbEVWbEZSUkVSQ2RIQmliV1I1Q2xwWVRucE1WemwzV2xoS2FHUkhPWGxSUkVVeVRXcEJkMDVVYTNkUFZGRjNTR2hqVGsxcVJYZE9WRUY2VFZSWmVVNUVWWHBYYUdOT1RXcE5kMDVVUVhvS1RWUlplVTVFVlRCWGFrRnRUVk5SZDBsbldVUldVVkZFUkVKMGNHSnRaSGxhV0U1NlRGYzVkMXBZU21oa1J6bDVVVVJGTWsxcVFYZE9WR3QzVDFSUmR3cG5aMFZwVFVFd1IwTlRjVWRUU1dJelJGRkZRa0ZSVlVGQk5FbENSSGRCZDJkblJVdEJiMGxDUVZGRVVXaElVbVozVVVvMk1DOHphakZLYTNnNE5sSXpDbTV6Vm5oM1ZXMWpjQ3QzZEVrclN5dDNiRzV6ZGxkeE4yZ3ZNa1JvZFZCcGVHNUNjM0J6WTJwU1UxSnhSMjlyUTFSck1tRmpTWFF4T1daTFNtcFVZVmtLY25CM1RDOXBjRE5PV0VscVdXOUxWbEF5WTB4M1RHdFBhelZEVkdWMVFXb3lOMFpYTkdSTFNrSmpWVmxGYTFnemVXSk9UWEkwUjFrMGRUWkxVbTlPYXdwUGFVWkVkRzltVjBKVVNqUmtTVGhXY1VSbFZtOHdhbU5QT0hodVNtVk5SSFUxYVU1bU5IWlZRMmc0VW1obVMwdFRkbFJGUm5aVGF6ZzVNWGN2YWpNMENtMDFhbWxZYW1aRFVUY3pjMWx5VW1VdlYyWXJSVXhaZWt3d2JqSlZiR1F6WmpCV2FUSk1VRmxDYTJnNFpqaHFjemt2YWtsMWVqVnFNMmxhWm1aME1FNEthMXBIVUVoSFJVUTRSRzFGTUZaRVFtRlhRa2REWVRBM1JFVnVOSE12UjJ4R05rYzRWbEJ2VFRRNGNEWnhRbWhXY1VSTFFqSmxRamxUU210NmJHOWpOUXBCWjAxQ1FVRkhhbEpVUWtSTlFUUkhRVEZWWkVSM1JVSXZkMUZGUVhkSlEzQkVRVk5DWjA1V1NGSk5Ra0ZtT0VWRFJFRkhRVkZJTDBGblJVRk5RakJIQ2tFeFZXUkVaMUZYUWtKUlYxZG5WSGd4V1c1cE5sZFNiMDUzU1RWeVVsWnVaVVJDUm5ORVFVNUNaMnR4YUd0cFJ6bDNNRUpCVVhOR1FVRlBRMEZSUlVFS1FrZ3lTbU5QWW5ZdlRFRXpOMlJZWlZKM01YSldLMFpTU0dwTVduQTBRWE5oWlVzMVZHTmFVMDlPTDBsa2REWllTWFp1Y0dVellWTklXWGd3VkRWTVlncEZSQ3QwZEhvNGIxWnhUVEZRUkdSb1psbFVlR2xQU0hsMFUzaG1hVkpLVGs5VVJETkRhalJMUlVnemNGbG5OR05IU2s1SlJGVkdia3c0VlcxR1pEZERDamx4YW5WVVRtWnJRWHBXY0dsYWRETldUMlZUWVd0QmJTdEZWMDV4TlU5bUwzTjZPVXAwY1VadVlua3ZjVnBaU1RjeWVYRnNlQzkyYUhCaVIwdHZUR3NLZUdFek16bE1kR0pXTWxVM2NVUXlVa2hWYkdwTVJ5dFFaWEIzVDNKRlFrdFVUV1ExTkRCb1NuQXZVbk5ZYmpOV1JERjJZa2xGY0Rkb1JDOW5hV2RLWVFwVVFYWTBTRWh6Y0ZrelNYSXZUSGhwY2xCQmNEZGhWazVXTUUxaFZXOHZNakUzWXl0WGNteFBWRk00Tm10T2NYQktRME5OT1dRdmExQm5OMUowVFRKVENrNTZVMHBDUTNOcVNIaFpkMjFLYmt0dFpYRm9iSGM5UFFvdExTMHRMVVZPUkNCRFJWSlVTVVpKUTBGVVJTMHRMUzB0Q2c9PQogICAgc2VydmVyOiBodHRwczovL2FwaS5kZW1vLWVhc3QtdjQ3NS1odmJ0dC5kZW1vLnJlZC1jaGVzdGVyZmllbGQuY29tOjY0NDMKICBuYW1lOiBkZWZhdWx0LWNsdXN0ZXIKY29udGV4dHM6Ci0gY29udGV4dDoKICAgIGNsdXN0ZXI6IGRlZmF1bHQtY2x1c3RlcgogICAgbmFtZXNwYWNlOiBkZWZhdWx0CiAgICB1c2VyOiBkZWZhdWx0LWF1dGgKICBuYW1lOiBkZWZhdWx0LWNvbnRleHQKY3VycmVudC1jb250ZXh0OiBkZWZhdWx0LWNvbnRleHQKa2luZDogQ29uZmlnCnByZWZlcmVuY2VzOiB7fQp1c2VyczoKLSBuYW1lOiBkZWZhdWx0LWF1dGgKICB1c2VyOgogICAgdG9rZW46IGV5SmhiR2NpT2lKU1V6STFOaUlzSW10cFpDSTZJakptUzJkQ2IySjJUbFZHVUVrMlkzTmhaazV6V1ZkWldWSllValo2Vm5KMFZsWmthR2hzVTNKTlJXY2lmUS5leUpwYzNNaU9pSnJkV0psY201bGRHVnpMM05sY25acFkyVmhZMk52ZFc1MElpd2lhM1ZpWlhKdVpYUmxjeTVwYnk5elpYSjJhV05sWVdOamIzVnVkQzl1WVcxbGMzQmhZMlVpT2lKamJIVnpkR1Z5TVMxaGQzTXRaV0Z6ZENJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZqY21WMExtNWhiV1VpT2lKamJIVnpkR1Z5TVMxaGQzTXRaV0Z6ZEMxaWIyOTBjM1J5WVhBdGMyRXRkRzlyWlc0dGR6SmtPRFVpTENKcmRXSmxjbTVsZEdWekxtbHZMM05sY25acFkyVmhZMk52ZFc1MEwzTmxjblpwWTJVdFlXTmpiM1Z1ZEM1dVlXMWxJam9pWTJ4MWMzUmxjakV0WVhkekxXVmhjM1F0WW05dmRITjBjbUZ3TFhOaElpd2lhM1ZpWlhKdVpYUmxjeTVwYnk5elpYSjJhV05sWVdOamIzVnVkQzl6WlhKMmFXTmxMV0ZqWTI5MWJuUXVkV2xrSWpvaVpEYzJOVGd6Tm1NdFpUZGpOaTAwWVRCaUxXRmtPV1V0TVdRMU1HUmpZalUwWm1abUlpd2ljM1ZpSWpvaWMzbHpkR1Z0T25ObGNuWnBZMlZoWTJOdmRXNTBPbU5zZFhOMFpYSXhMV0YzY3kxbFlYTjBPbU5zZFhOMFpYSXhMV0YzY3kxbFlYTjBMV0p2YjNSemRISmhjQzF6WVNKOS5veTFTUDUxZ3BKLURKdnR5MmV1WjlqTW5RTTVFSlJSM0hQUTJnblNfRWNEeEFnMjQ4N3pMcE9jNWtaNWtXc1pEYmlyMW90X3FCclNzOTRHTWlib2pianJkSjd0aUZ5X1lRWGJEVmluOHRVcmxzQl9STU5aUE1vd2xJYVFGVnRyNXhFa180SUh0ZWZ6MWJjZHdFRVFVUnRJSmI4Q2w3cTZ6VTk5eUJMRVBkMHJmcGlJeDB5bDBSNGl5Y1NrUjEyZGtPNVlNRGYzQjJJWndKN0w2Z2dKNWcwSkNEbXNCdnZZQl9sQ09KZEgwVDJUcEV6RWxvaXlvVU03Q1Ayek5mMlhVUE1xS05CSUktTlRacVpJTmFtaU5KUzBFTF9QWlVhd0hMLTBmOFRSVFhjN0g0YUtLZHp2aTlNdm52aUhjeC14eUg1QWFFZjBvQzc1N0xJaG5xTXVnZFEK
+      kind: Secret
+      metadata:
+        name: bootstrap-hub-kubeconfig
+        namespace: open-cluster-management-agent
+      type: Opaque
+    - apiVersion: v1
+      data:
+        .dockerconfigjson: ewogICJhdXRocyI6IHsKICAgICJxdWF5LmlvIjogewogICAgICAiYXV0aCI6ICJiV1JsYkdSbGNqcHFhRWRSVUVGcVowcDZTMmRFZURRM2QwaFRWV1pLZHpWUWQybHpOWEZHVFZkeU56TjJjWGRQYjBsT1EzcFhaV1lyTUU5clpFNUNPVFJyVTJnM1FYRllWSE5zV2pWM1p6bG5hV2hqYmpKaVZIWTVNQ3RCT0doamNESllUVWhsTXl0UGFFOUhlRk4yVVRVelRUMD0iLAogICAgICAiZW1haWwiOiAiIgogICAgfSwKICAgICJxdWF5LmlvOjQ0MyI6IHsKICAgICAgImF1dGgiOiAiWVdOdExXUXJiV1JsYkdSbGNqb3hXRTQ0VTFCVlQwOVFNa2RJU1RoQ05VbzFSVWxLT0ZneFJ6VlVWMDlMVDFSSFZVUldRbEZEUzFJek5VMVJNMHhUTmtoR09FbEtRVEZXV1RCVVJUVkoiLAogICAgICAiZW1haWwiOiAiIgogICAgfQogIH0KfQ==
+      kind: Secret
+      metadata:
+        name: open-cluster-management-image-pull-credentials
+        namespace: open-cluster-management-agent
+      type: kubernetes.io/dockerconfigjson
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRole
+      metadata:
+        name: klusterlet
+      rules:
+      - apiGroups:
+        - ""
+        resources:
+        - secrets
+        - configmaps
+        - serviceaccounts
+        verbs:
+        - create
+        - get
+        - list
+        - update
+        - watch
+        - patch
+        - delete
+      - apiGroups:
+        - authorization.k8s.io
+        resources:
+        - subjectaccessreviews
+        verbs:
+        - create
+      - apiGroups:
+        - ""
+        resources:
+        - namespaces
+        verbs:
+        - create
+        - get
+        - list
+        - watch
+        - delete
+      - apiGroups:
+        - ""
+        - events.k8s.io
+        resources:
+        - events
+        verbs:
+        - create
+        - patch
+        - update
+      - apiGroups:
+        - apps
+        resources:
+        - deployments
+        verbs:
+        - create
+        - get
+        - list
+        - update
+        - watch
+        - patch
+        - delete
+      - apiGroups:
+        - rbac.authorization.k8s.io
+        resources:
+        - clusterrolebindings
+        - rolebindings
+        verbs:
+        - create
+        - get
+        - list
+        - update
+        - watch
+        - patch
+        - delete
+      - apiGroups:
+        - rbac.authorization.k8s.io
+        resources:
+        - clusterroles
+        - roles
+        verbs:
+        - create
+        - get
+        - list
+        - update
+        - watch
+        - patch
+        - delete
+        - escalate
+        - bind
+      - apiGroups:
+        - apiextensions.k8s.io
+        resources:
+        - customresourcedefinitions
+        verbs:
+        - create
+        - get
+        - list
+        - update
+        - watch
+        - patch
+        - delete
+      - apiGroups:
+        - operator.open-cluster-management.io
+        resources:
+        - klusterlets
+        verbs:
+        - get
+        - list
+        - watch
+        - update
+        - patch
+        - delete
+      - apiGroups:
+        - operator.open-cluster-management.io
+        resources:
+        - klusterlets/status
+        verbs:
+        - update
+        - patch
+      - apiGroups:
+        - work.open-cluster-management.io
+        resources:
+        - appliedmanifestworks
+        verbs:
+        - list
+        - update
+        - patch
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRole
+      metadata:
+        labels:
+          rbac.authorization.k8s.io/aggregate-to-admin: "true"
+        name: open-cluster-management:klusterlet-admin-aggregate-clusterrole
+      rules:
+      - apiGroups:
+        - operator.open-cluster-management.io
+        resources:
+        - klusterlets
+        verbs:
+        - get
+        - list
+        - watch
+        - create
+        - update
+        - patch
+        - delete
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: klusterlet
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: klusterlet
+      subjects:
+      - kind: ServiceAccount
+        name: klusterlet
+        namespace: open-cluster-management-agent
+    - apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        labels:
+          app: klusterlet
+        name: klusterlet
+        namespace: open-cluster-management-agent
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: klusterlet
+        template:
+          metadata:
+            labels:
+              app: klusterlet
+          spec:
+            containers:
+            - args:
+              - /registration-operator
+              - klusterlet
+              image: quay.io:443/acm-d/registration-rhel8-operator@sha256:aef28661178057f41d0f2229c4a0f2a0f2cfb0db1c5ad6d8a33094e8b0d20b7a
+              imagePullPolicy: IfNotPresent
+              livenessProbe:
+                httpGet:
+                  path: /healthz
+                  port: 8443
+                  scheme: HTTPS
+                initialDelaySeconds: 2
+                periodSeconds: 10
+              name: klusterlet
+              readinessProbe:
+                httpGet:
+                  path: /healthz
+                  port: 8443
+                  scheme: HTTPS
+                initialDelaySeconds: 2
+            serviceAccountName: klusterlet
+    - apiVersion: operator.open-cluster-management.io/v1
+      kind: Klusterlet
+      metadata:
+        name: klusterlet
+      spec:
+        clusterName: cluster1-aws-east
+        imagePullSecret: open-cluster-management-image-pull-credentials
+        namespace: open-cluster-management-agent
+        registrationImagePullSpec: quay.io:443/acm-d/registration-rhel8@sha256:0cd503a87d518d32a67aeaf79d60921452f019e3617ab78e97e99300a5371b86
+        workImagePullSpec: quay.io:443/acm-d/work-rhel8@sha256:83a5783ed9daa069439085e89aeb9c7ade96c8d817ad5520d6603c0b484c9eb9
+status:
+  conditions:
+  - lastTransitionTime: "2021-05-11T02:43:36Z"
+    message: Apply manifest work complete
+    reason: AppliedManifestWorkComplete
+    status: "True"
+    type: Applied
+  - lastTransitionTime: "2021-05-14T14:33:21Z"
+    message: All resources are available
+    reason: ResourcesAvailable
+    status: "True"
+    type: Available
+  resourceStatus:
+    manifests:
+    - conditions:
+      - lastTransitionTime: "2021-05-11T02:43:36Z"
+        message: Apply manifest complete
+        reason: AppliedManifestComplete
+        status: "True"
+        type: Applied
+      - lastTransitionTime: "2021-05-14T14:33:18Z"
+        message: Resource is available
+        reason: ResourceAvailable
+        status: "True"
+        type: Available
+      resourceMeta:
+        group: ""
+        kind: Namespace
+        name: open-cluster-management-agent
+        namespace: ""
+        ordinal: 0
+        resource: namespaces
+        version: v1
+    - conditions:
+      - lastTransitionTime: "2021-05-11T02:43:36Z"
+        message: Apply manifest complete
+        reason: AppliedManifestComplete
+        status: "True"
+        type: Applied
+      - lastTransitionTime: "2021-05-11T02:43:36Z"
+        message: Resource is available
+        reason: ResourceAvailable
+        status: "True"
+        type: Available
+      resourceMeta:
+        group: ""
+        kind: ServiceAccount
+        name: klusterlet
+        namespace: open-cluster-management-agent
+        ordinal: 1
+        resource: serviceaccounts
+        version: v1
+    - conditions:
+      - lastTransitionTime: "2021-05-11T02:43:36Z"
+        message: Apply manifest complete
+        reason: AppliedManifestComplete
+        status: "True"
+        type: Applied
+      - lastTransitionTime: "2021-05-11T02:43:37Z"
+        message: Resource is available
+        reason: ResourceAvailable
+        status: "True"
+        type: Available
+      resourceMeta:
+        group: ""
+        kind: Secret
+        name: bootstrap-hub-kubeconfig
+        namespace: open-cluster-management-agent
+        ordinal: 2
+        resource: secrets
+        version: v1
+    - conditions:
+      - lastTransitionTime: "2021-05-11T02:43:36Z"
+        message: Apply manifest complete
+        reason: AppliedManifestComplete
+        status: "True"
+        type: Applied
+      - lastTransitionTime: "2021-05-11T02:43:37Z"
+        message: Resource is available
+        reason: ResourceAvailable
+        status: "True"
+        type: Available
+      resourceMeta:
+        group: ""
+        kind: Secret
+        name: open-cluster-management-image-pull-credentials
+        namespace: open-cluster-management-agent
+        ordinal: 3
+        resource: secrets
+        version: v1
+    - conditions:
+      - lastTransitionTime: "2021-05-11T02:43:36Z"
+        message: Apply manifest complete
+        reason: AppliedManifestComplete
+        status: "True"
+        type: Applied
+      - lastTransitionTime: "2021-05-14T14:33:20Z"
+        message: Resource is available
+        reason: ResourceAvailable
+        status: "True"
+        type: Available
+      resourceMeta:
+        group: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: klusterlet
+        namespace: ""
+        ordinal: 4
+        resource: clusterroles
+        version: v1
+    - conditions:
+      - lastTransitionTime: "2021-05-11T02:43:36Z"
+        message: Apply manifest complete
+        reason: AppliedManifestComplete
+        status: "True"
+        type: Applied
+      - lastTransitionTime: "2021-05-11T02:43:38Z"
+        message: Resource is available
+        reason: ResourceAvailable
+        status: "True"
+        type: Available
+      resourceMeta:
+        group: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: open-cluster-management:klusterlet-admin-aggregate-clusterrole
+        namespace: ""
+        ordinal: 5
+        resource: clusterroles
+        version: v1
+    - conditions:
+      - lastTransitionTime: "2021-05-11T02:43:36Z"
+        message: Apply manifest complete
+        reason: AppliedManifestComplete
+        status: "True"
+        type: Applied
+      - lastTransitionTime: "2021-05-11T02:43:39Z"
+        message: Resource is available
+        reason: ResourceAvailable
+        status: "True"
+        type: Available
+      resourceMeta:
+        group: rbac.authorization.k8s.io
+        kind: ClusterRoleBinding
+        name: klusterlet
+        namespace: ""
+        ordinal: 6
+        resource: clusterrolebindings
+        version: v1
+    - conditions:
+      - lastTransitionTime: "2021-05-11T02:43:36Z"
+        message: Apply manifest complete
+        reason: AppliedManifestComplete
+        status: "True"
+        type: Applied
+      - lastTransitionTime: "2021-05-11T02:43:39Z"
+        message: Resource is available
+        reason: ResourceAvailable
+        status: "True"
+        type: Available
+      resourceMeta:
+        group: apps
+        kind: Deployment
+        name: klusterlet
+        namespace: open-cluster-management-agent
+        ordinal: 7
+        resource: deployments
+        version: v1
+    - conditions:
+      - lastTransitionTime: "2021-05-11T02:43:36Z"
+        message: Apply manifest complete
+        reason: AppliedManifestComplete
+        status: "True"
+        type: Applied
+      - lastTransitionTime: "2021-05-11T02:43:40Z"
+        message: Resource is available
+        reason: ResourceAvailable
+        status: "True"
+        type: Available
+      resourceMeta:
+        group: operator.open-cluster-management.io
+        kind: Klusterlet
+        name: klusterlet
+        namespace: ""
+        ordinal: 8
+        resource: klusterlets
+        version: v1

@@ -1,0 +1,9 @@
+apiVersion: operator.open-cluster-management.io/v1
+kind: Klusterlet
+metadata:
+  name: klusterlet
+spec:
+  clusterName: kind-cluster
+  namespace: open-cluster-management-agent
+  registrationImagePullSpec: 'quay.io/open-cluster-management/registration:0.0.3'
+  workImagePullSpec: 'quay.io/open-cluster-management/work:0.0.3'

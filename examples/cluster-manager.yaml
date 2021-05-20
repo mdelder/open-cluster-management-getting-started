@@ -1,0 +1,7 @@
+apiVersion: operator.open-cluster-management.io/v1
+kind: ClusterManager
+metadata:
+  name: cluster-manager
+spec:
+  registrationImagePullSpec: 'quay.io/open-cluster-management/registration:0.0.3'
+  workImagePullSpec: 'quay.io/open-cluster-management/work:0.0.3'

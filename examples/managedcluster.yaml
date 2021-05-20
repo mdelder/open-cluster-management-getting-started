@@ -1,0 +1,13 @@
+apiVersion: cluster.open-cluster-management.io/v1
+kind: ManagedCluster
+metadata:
+  labels:
+    apps.pacman: deployed
+    cloud: mylaptop
+    name: kind-cluster
+    region: us-east-1
+    vendor: kind
+  name: kind-cluster
+spec:
+  hubAcceptsClient: true
+  leaseDurationSeconds: 60
