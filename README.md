@@ -103,12 +103,21 @@ We are going to take an insecure approach to import the _managed cluster_ to the
 $ export KUBECONFIG=kind-hub.kubecfg
 $ kind export kubeconfig --name=hub
 
-$ export KUBECONFIG=kind-cluster.kubecfg
-$ kind export kubeconfig --name=cluster
+./generate-bootstrap-kubeconfig.sh
 
 $ kubectl create secret generic bootstrap-hub-kubeconfig \
     -n open-cluster-management-agent \
     --from-file=kubeconfig=bootstrap-hub.kubecfg
+```
+
+Approve the `CertificateSigningRequest` on the _hub_.
+
+```bash
+$ kubectl get csr
+NAME                 AGE     SIGNERNAME                            REQUESTOR          CONDITION
+kind-cluster-mgtdz   8m53s   kubernetes.io/kube-apiserver-client   kubernetes-admin   Pending
+
+$ kubectl certificate approve kind-cluster-mgtdz
 ```
 
 ```bash
