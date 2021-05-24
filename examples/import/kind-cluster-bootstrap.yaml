@@ -1,0 +1,53 @@
+# Find/Replace `kind-cluster` to match your cluster namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: system:open-cluster-management:bootstrap
+rules:
+- apiGroups:
+  - certificates.k8s.io
+  resources:
+  - certificatesigningrequests
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+- apiGroups:
+  - cluster.open-cluster-management.io
+  resources:
+  - managedclusters
+  verbs:
+  - get
+  - create
+  - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kind-cluster-bootstrap
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:open-cluster-management:bootstrap
+subjects:
+- kind: Group
+  apiGroup: rbac.authorization.k8s.io
+  name: system:bootstrappers:managedcluster
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: bootstrap-token-hifklm
+  namespace: kube-system
+type: bootstrap.kubernetes.io/token
+stringData:
+  # Token ID and secret. Required.
+  token-id: hifklm
+  token-secret: abcdefghijklmnop
+
+  # Allowed usages.
+  usage-bootstrap-authentication: "true"
+
+  # Extra groups to authenticate the token as. Must start with "system:bootstrappers:"
+  auth-extra-groups: system:bootstrappers:managedcluster

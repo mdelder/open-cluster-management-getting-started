@@ -1,29 +1,20 @@
 #!/bin/bash
 
-
 apply_bootstrap_sa() {
-    bootstrap_sa=$(dirname $0)/examples/import/kind-cluster-bootstrap-sa.yaml
-    kubectl apply -f $bootstrap_sa
+    cat $(dirname $0)/examples/import/kind-cluster-bootstrap.yaml | kubectl apply -f -
     sleep 5
 }
 
-gen_insecure_hub_kubeconfig() {
-    hub_cluster="kind-hub"
-    cluster_ns="kind-cluster"
-    token=$(kubectl get -n $cluster_ns secret/bootstrap-sa -o jsonpath='{.data.token}')
-
-    export KUBECONFIG=bootstrap-hub.kubeconfig
-    kind export kubeconfig --name=hub
-    kubectl config set-credentials bootstrap-sa --token=$token
-    kubectl config set-context --current --user=bootstrap-sa
-    kubectl config set clusters.$hub_cluster.insecure-skip-tls-verify true
-    kubectl config unset clusters.$hub_cluster.certificate-authority-data
-
-    sed -iE 's/127\.0\.0\.1/docker.for.mac.localhost/g' bootstrap-hub.kubeconfig
+gen_hub_kubeconfig() {
+    kubectl get configmap cluster-info -n kube-public -o jsonpath='{.data.kubeconfig}' > bootstrap-hub.kubeconfig
+    sed -i "s,name: \"\",name: hub," bootstrap-hub.kubeconfig
+    kubectl config set-credentials bootstrap --token=hifklm.abcdefghijklmnop --kubeconfig=bootstrap-hub.kubeconfig
+    kubectl config set-context bootstrap --user=bootstrap --cluster=hub --kubeconfig=bootstrap-hub.kubeconfig
+    kubectl config use-context bootstrap --kubeconfig=bootstrap-hub.kubeconfig
 }
 
 apply_bootstrap_sa
-gen_insecure_hub_kubeconfig
+gen_hub_kubeconfig
 
 
 echo "

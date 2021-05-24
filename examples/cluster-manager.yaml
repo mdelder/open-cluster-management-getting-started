@@ -3,5 +3,5 @@ kind: ClusterManager
 metadata:
   name: cluster-manager
 spec:
-  registrationImagePullSpec: 'quay.io/open-cluster-management/registration:0.0.3'
-  workImagePullSpec: 'quay.io/open-cluster-management/work:0.0.3'
+  registrationImagePullSpec: 'quay.io/open-cluster-management/registration:latest'
+  workImagePullSpec: 'quay.io/open-cluster-management/work:latest'

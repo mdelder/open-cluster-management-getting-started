@@ -28,21 +28,19 @@ kind export kubeconfig --name=cluster
 kind export kubeconfig --name=hub
 ```
 
+## Install kustomize as the pre-requirement
+
+```bash
+curl -s "https://raw.githubusercontent.com/ kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+```
+
 ## Deploy the Cluster Manager
 
 Let's deploy the [Cluster Manager](https://operatorhub.io/operator/cluster-manager) to the _hub_.
 
-We need the Operator Lifecycle Manager (OLM) running on our cluster. If you're running OKD or OpenShift, you already have these pods running.
 ```bash
-$ kind export kubeconfig --name=hub
-$ curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.18.1/install.sh | bash -s v0.18.1
-```
-
-Next, deploy the `Cluster Manager` operator:
-
-```bash
-$ kubectl create -f https://operatorhub.io/install/cluster-manager.yaml
-subscription.operators.coreos.com/my-cluster-manager created
+$ kubectl config use kind-hub
+$ kustomize build https://github.com/open-cluster-management-io/registration-operator/deploy/cluster-manager/config | kubectl apply -f -
 ```
 Next, we deploy the `ClusterManager` operand in the `operator.open-cluster-management.io/v1` API group. The `ClusterManager` operand will start the pods that listen for _managed clusters_ to be imported and service API like `ManagedCluster`.
 
@@ -64,14 +62,8 @@ cluster-manager   5m19s
 $ kubectl get pods -n open-cluster-management-hub
 NAME                                                       READY   STATUS    RESTARTS   AGE
 cluster-manager-registration-controller-6586874ccc-475mt   1/1     Running   1          4m25s
-cluster-manager-registration-controller-6586874ccc-cg2qb   1/1     Running   2          4m25s
-cluster-manager-registration-controller-6586874ccc-mq472   1/1     Running   1          4m25s
 cluster-manager-registration-webhook-58c7d64d9f-295tx      1/1     Running   2          4m25s
-cluster-manager-registration-webhook-58c7d64d9f-2lmx2      1/1     Running   1          4m25s
-cluster-manager-registration-webhook-58c7d64d9f-m578d      1/1     Running   1          4m25s
 cluster-manager-work-webhook-57c5db85f5-6jhgm              0/1     Pending   0          4m25s
-cluster-manager-work-webhook-57c5db85f5-dwmcw              1/1     Running   1          4m25s
-cluster-manager-work-webhook-57c5db85f5-mfnf4              0/1     Pending   0          4m25s
 ```
 
 ## Deploy the `Klusterlet` agent
@@ -81,12 +73,8 @@ Now let's *import* the _managed cluster_ to the _hub_ by deploying the [Klusterl
 We're now going to switch to the KinD cluster named `cluster` and configure the `Klusterlet` operator and supporting `Klusterlet` operand.
 
 ```bash
-
-# Install the Operator Lifecycle Manager if not present
-$ curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.18.1/install.sh | bash -s v0.18.1
-
-# Configure the Klusterlet operator
-$ kubectl create -f https://operatorhub.io/install/klusterlet.yaml
+$ kubectl config use kind-cluster
+$ kustomize build https://github.com/open-cluster-management-io/registration-operator/deploy/klusterlet/config | kubectl apply -f -
 ```
 
 Once operator is ready, deploy the Klusterlet agent pods by configuring the `Klusterlet` operand:
@@ -100,24 +88,24 @@ Now the `Klusterlet` operand will start the pods for `registration` and `work`. 
 We are going to take an insecure approach to import the _managed cluster_ to the _hub_ because we cannot create `ServiceAccount` tokens in KinD clusters. So let's capture the `kind-hub` `$KUBECONFIG` and create a `Secret` with it on the _managed clusters_.
 
 ```bash
-$ export KUBECONFIG=kind-hub.kubecfg
-$ kind export kubeconfig --name=hub
-
-./generate-bootstrap-kubeconfig.sh
-
+$ kubectl config use kind-hub
+$ ./generate-bootstrap-kubeconfig.sh
+$ kubectl config use kind-cluster
 $ kubectl create secret generic bootstrap-hub-kubeconfig \
     -n open-cluster-management-agent \
-    --from-file=kubeconfig=bootstrap-hub.kubecfg
+    --from-file=kubeconfig=bootstrap-hub.kubeconfig
 ```
 
 Approve the `CertificateSigningRequest` on the _hub_.
 
 ```bash
+$ kubectl config use kind-hub
 $ kubectl get csr
 NAME                 AGE     SIGNERNAME                            REQUESTOR          CONDITION
 kind-cluster-mgtdz   8m53s   kubernetes.io/kube-apiserver-client   kubernetes-admin   Pending
 
 $ kubectl certificate approve kind-cluster-mgtdz
+$ kubectl patch managedcluster kind-cluster -p='{"spec":{"hubAcceptsClient":true}}' --type=merge
 ```
 
 ```bash
