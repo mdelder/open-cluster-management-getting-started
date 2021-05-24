@@ -262,6 +262,7 @@ If you're interested to get involved with the [open-cluster-management.io](https
 # References
 
 1. [open-cluster-management.io](https://open-cluster-management.io) - the official project website.
+2. [Register Cluster with the Klusterlet](https://open-cluster-management.io/getting-started/core/register-cluster/) - project documentation for cluster registration.
 2. [YouTube/Managing the Open Hybrid Cloud with Red Hat Advanced Cluster Management](https://www.youtube.com/watch?v=K-H-XZH5kKI) (28m)
 2. [YouTube/Introducing github.com/open-cluster-management at All Things Open](https://www.youtube.com/watch?v=1aab7B0Nnwo) (40m)
 2. [How to get started with Red Hat Advanced Cluster Management](https://www.openshift.com/blog/how-to-get-started-with-red-hat-advanced-cluster-management-for-kubernetes) - describes how to consume Open Cluster Management from Red Hat's supported offering of the project.
