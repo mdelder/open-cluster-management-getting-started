@@ -25,8 +25,8 @@ gen_insecure_hub_kubeconfig() {
     kind export kubeconfig --name=hub
     kubectl config set-credentials $sa_user --token=$token
     kubectl config set-context --current --user="$sa_user"
-    kubectl config set clusters.$hub_cluster.insecure-skip-tls-verify true
-    kubectl config unset clusters.$hub_cluster.certificate-authority-data
+    # kubectl config set clusters.$hub_cluster.insecure-skip-tls-verify true
+    # kubectl config unset clusters.$hub_cluster.certificate-authority-data
     kubectl config unset users.$hub_cluster
 
     # E0524 16:56:54.331005       1 reflector.go:127] k8s.io/client-go@v0.19.5/tools/cache/reflector.go:156:
