@@ -95,22 +95,22 @@ Once operator is ready, deploy the Klusterlet agent pods by configuring the `Klu
 $ kubectl apply -f examples/klusterlet.yaml
 ```
 
-Now the `Klusterlet` operand will start the pods for `registration` and `work`. However, we can see that the `registration` pods will fail to successful start until we supply the required `bootstrap-hub-kubeconfig` that allows the `registration` pods to connect to the API server of the _hub_.
+Now the `Klusterlet` operand will start the pods for `registration` and `work`. However, we can see that the `registration` pods will fail to successfully start until we supply the required `bootstrap-hub-kubeconfig` that allows the `registration` pods to connect to the API server of the _hub_.
 
-We are going to take an insecure approach to import the _managed cluster_ to the _hub_ because we cannot create `ServiceAccount` tokens in KinD clusters. So let's capture the `kind-hub` `$KUBECONFIG` and create a `Secret` with it on the _managed clusters_.
+To limit the access of the `klusterlet` agent, we are going to supply a `ServiceAccount` user (named `bootstrap-sa`) that only has access to create `CertificateSigningRequests`. Once approved by the `cluster-admin` on the hub can approve the `CSR` to assign a valid X.509 identity for the `klusterlet` agent. Additional privileges for the agent to interact with resources in its assigned `Namespace` on the _hub_ will then be assigned to this X.509 certificate identity.
 
 ```bash
+# The generate-bootstrap-kubeconfig.sh assumes you have a `kind` cluster named `kind-hub`
+$ ./generate-bootstrap-kubeconfig.sh
+
 $ export KUBECONFIG=kind-hub.kubecfg
 $ kind export kubeconfig --name=hub
 
-./generate-bootstrap-kubeconfig.sh
-
 $ kubectl create secret generic bootstrap-hub-kubeconfig \
-    -n open-cluster-management-agent \
-    --from-file=kubeconfig=bootstrap-hub.kubecfg
+    -n open-cluster-management-agent --from-file=kubeconfig=bootstrap-hub.kubeconfig
 ```
 
-Approve the `CertificateSigningRequest` on the _hub_.
+Approve the `CertificateSigningRequest` on the _hub_ to generate an X.509 identity for the `klusterlet` agent.
 
 ```bash
 $ kubectl get csr
@@ -118,33 +118,59 @@ NAME                 AGE     SIGNERNAME                            REQUESTOR    
 kind-cluster-mgtdz   8m53s   kubernetes.io/kube-apiserver-client   kubernetes-admin   Pending
 
 $ kubectl certificate approve kind-cluster-mgtdz
+certificatesigningrequest.certificates.k8s.io/kind-cluster-mgtdz approved
 ```
+
+In addition to the acceptance of the X.509 certificate identity of the agent (e.g. `kind-cluster-mgtdz` in the example output above), the _hub_ must accept the `ManagedCluster` as well. The `ManagedCluster` will be created as the `klusterlet` attempts to connect to the _hub_ if it does not already exist.
 
 ```bash
-$ kubectl get pods -n open-cluster-management-agent
+$ kubectl get managedclusters
+NAME           HUB ACCEPTED   MANAGED CLUSTER URLS   JOINED   AVAILABLE   AGE
+kind-cluster   false                                                      21m
 ```
 
-### In case you're curious
-The only required permissions for `bootstrap-hub-kubeconfig` are to create a `CertificateSigningRequest`. Here is an [example `ServiceAccount` configuration](examples/import/kind-cluster-bootstrap-sa.yaml) that would allow this (if KinD supported `ServiceAccount` tokens).
+There is a sub-resource for `ManagedClusters/hubAcceptsClient` to ensure only users that have been assigned the permission to update `hubAcceptsClient` are allowed to perform this approval process. While the `klusterlet` can create a `ManagedCluster` and query for information about it, it cannot explicitly approve its own attempt to join.
 
 ```bash
-# Using the KUBECONFIG of the hub
-export CLUSTER_NAMESPACE=kind-cluster
-kubectl apply -f examples/import/kind-cluster-bootstrap-sa.yaml
-# sleep 5 or wait a moment for Kubernetes to reconcile the serviceaccount token in the secret.
-export TOKEN=$(kubectl get -n $CLUSTER_NAMESPACE secret/bootstrap-sa -o jsonpath='{.data.token}')
-
-
-# Make a copy of the KUBECONFIG to avoid modifying the original
-cp $KUBECONFIG bootstrap-hub.kubeconfig
-export KUBECONFIG=bootstrap-hub.kubeconfig
-kubectl config set-credentials bootstrap-sa --token=$TOKEN
-kubectl config set-context --current --user=bootstrap-sa
-
-kubectl create secret generic bootstrap-hub-kubeconfig -n open-cluster-management-agent --from-file=kubeconfig=bootstrap-hub.kubeconfig
+$ kubectl patch managedclusters kind-cluster --type=merge -p '{"spec":{"hubAcceptsClient":true}}'
+managedcluster.cluster.open-cluster-management.io/kind-cluster patched
 ```
 
+You can streamline this step if you anticipate the `ManagedCluster` of a specific name joining the _hub_ by pre-creating the `ManagedCluster` on the _hub_. Because `spec.hubAcceptsClient` is already `true`, any cluster that connects as `kind-cluster` will automatically be accepted.
 
+```bash
+apiVersion: cluster.open-cluster-management.io/v1
+kind: ManagedCluster
+metadata:
+  labels:
+    apps.pacman: deployed
+    cloud: mylaptop
+    name: kind-cluster
+    region: us-east-1
+    vendor: kind
+  name: kind-cluster
+spec:
+  hubAcceptsClient: true
+  leaseDurationSeconds: 60
+```
+
+At this point, you should now have a joined `ManagedCluster` attached to your _hub_:
+
+```bash
+kubectl get managedclusters
+NAME           HUB ACCEPTED   MANAGED CLUSTER URLS   JOINED   AVAILABLE   AGE
+kind-cluster   true                                           Unknown     5m
+```
+
+With `kind` clusters, there is a remaining error due to the X.509 identity of the `kind-hub` `kube-apiserver`.
+
+```bash
+    # E0524 16:56:54.331005       1 reflector.go:127] k8s.io/client-go@v0.19.5/tools/cache/reflector.go:156:
+    # Failed to watch *v1beta1.CertificateSigningRequest: failed to list *v1beta1.CertificateSigningRequest:
+    # Get "https://docker.for.mac.localhost:55268/apis/certificates.k8s.io/v1beta1/certificatesigningrequests?limit=500&resourceVersion=0":
+    # x509: certificate is valid for hub-control-plane, kubernetes, kubernetes.default, kubernetes.default.svc,
+    # kubernetes.default.svc.cluster.local, localhost, not docker.for.mac.localhost
+```
 
 # References
 
